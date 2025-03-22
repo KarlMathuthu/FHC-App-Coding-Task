@@ -41,7 +41,7 @@ The goal of this project is to showcase key functionalities of the FHC App, whic
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/fhc-app.git
+   git clone https://github.com/KarlMathuthu/FHC-App-Coding-Task.git
    ```
 
 2. **Install dependencies**:
