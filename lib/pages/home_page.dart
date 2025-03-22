@@ -53,6 +53,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         backgroundColor: AppColors.backgroundColor,
+        scrolledUnderElevation: 0,
         title: Text("FH Creatives", style: TextStyle(color: Colors.white)),
         actions: [
           IconButton(
@@ -98,14 +99,8 @@ class _HomePageState extends State<HomePage> {
             },
             items: [
               BottomNavigationBarItem(icon: tabIconWidget(0), label: "Home"),
-              BottomNavigationBarItem(
-                icon: tabIconWidget(1),
-                label: "Leading",
-              ),
-              BottomNavigationBarItem(
-                icon: tabIconWidget(2),
-                label: "Explore",
-              ),
+              BottomNavigationBarItem(icon: tabIconWidget(1), label: "Leading"),
+              BottomNavigationBarItem(icon: tabIconWidget(2), label: "Explore"),
               BottomNavigationBarItem(
                 icon: tabIconWidget(3),
                 label: "Settings",

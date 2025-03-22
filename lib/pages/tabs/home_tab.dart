@@ -1,7 +1,7 @@
+import 'package:chip_list/chip_list.dart';
 import 'package:fhc_app_task/models/competition.dart';
 import 'package:fhc_app_task/theme/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -11,6 +11,11 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
+  bool isLoading = false;
+  List<String> categories = [];
+
+  int selectedFilter = 0;
+
   List<CompetitionModel> competitions = [
     CompetitionModel(
       name: "Win a Trip to Cape Town",
@@ -36,6 +41,24 @@ class _HomeTabState extends State<HomeTab> {
           "Participate in the challenge to win exclusive gym memberships.",
     ),
   ];
+
+  void addCategoriesToFilterList() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    categories = competitions.map((e) => e.category).toSet().toList();
+
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    addCategoriesToFilterList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,28 +136,83 @@ class _HomeTabState extends State<HomeTab> {
                   ),
                 ),
                 Spacer(),
-                IconButton(
+                // Filter between upcoming and expired.
+                TextButton(
                   onPressed: () {},
-                  icon: SvgPicture.asset(
-                    "assets/icons/filter.svg",
-                    width: 18,
-                    height: 18,
-                    colorFilter: ColorFilter.mode(
-                      Colors.white,
-                      BlendMode.srcIn,
-                    ),
-                  ),
-                  style: IconButton.styleFrom(
-                    backgroundColor: AppColors.cardColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
+                  child: Text("More", style: TextStyle(color: Colors.white)),
                 ),
                 SizedBox(width: 16),
               ],
             ),
+
+            SizedBox(height: 10),
+
+            // chips filter (categories)
+            ChipList(
+              listOfChipNames: categories,
+              activeBgColorList: [AppColors.primaryColor],
+              inactiveBgColorList: const [AppColors.cardColor],
+              activeTextColorList: const [Colors.white],
+              inactiveTextColorList: [Colors.white],
+              listOfChipIndicesCurrentlySelected: [selectedFilter],
+              activeBorderColorList: [AppColors.primaryColor],
+              inactiveBorderColorList: [AppColors.cardColor],
+              supportsMultiSelect: true,
+              showCheckmark: false,
+            ),
+            SizedBox(height: 10),
             // Competitions list.
+            ListView.builder(
+              itemCount: competitions.length,
+              shrinkWrap: true,
+              padding: EdgeInsets.zero,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (BuildContext context, int index) {
+                CompetitionModel eachCompetition = competitions[index];
+                return Container(
+                  margin: EdgeInsets.only(left: 16, right: 16, bottom: 10),
+                  padding: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: AppColors.cardColor,
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Column(
+                    children: [
+                      ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        title: Text(
+                          eachCompetition.name,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        subtitle: Text(
+                          eachCompetition.description,
+                          style: TextStyle(color: AppColors.inActiveTabColor),
+                        ),
+                        trailing: Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryColor.withOpacity(.07),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          padding: EdgeInsets.all(8),
+                          child: Text(
+                            eachCompetition.category,
+                            style: TextStyle(color: AppColors.primaryColor),
+                          ),
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "Ending in 4 days",
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
             // Expired competitions
           ],
         ),
