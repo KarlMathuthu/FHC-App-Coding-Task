@@ -3,7 +3,7 @@ import 'package:fhc_app_task/models/competition.dart';
 import 'package:fhc_app_task/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:shimmer/shimmer.dart'; // Add this import
+import 'package:shimmer/shimmer.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -278,7 +278,15 @@ class _HomeTabState extends State<HomeTab> {
                       ),
                       trailing: ElevatedButton(
                         onPressed: () {},
-                        child: Text("View Details"),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.primaryColor.withOpacity(
+                            .05,
+                          ),
+                        ),
+                        child: Text(
+                          "View Details",
+                          style: TextStyle(color: AppColors.primaryColor),
+                        ),
                       ),
                     ),
                     Row(
@@ -309,3 +317,4 @@ class _HomeTabState extends State<HomeTab> {
     );
   }
 }
+// Created by https://www.github.com/KarlMathuthu

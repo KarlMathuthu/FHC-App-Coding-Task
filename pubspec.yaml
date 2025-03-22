@@ -26,5 +26,5 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
-
+    - screenshots/
 ## Created by https://www.github.com/KarlMathuthu
