@@ -9,3 +9,4 @@ class CompetitionCard extends StatelessWidget {
     return const Placeholder();
   }
 }
+// Created by https://www.github.com/KarlMathuthu

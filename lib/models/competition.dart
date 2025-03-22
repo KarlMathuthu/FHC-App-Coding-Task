@@ -13,3 +13,4 @@ class CompetitionModel {
     required this.description,
   });
 }
+// Created by https://www.github.com/KarlMathuthu
